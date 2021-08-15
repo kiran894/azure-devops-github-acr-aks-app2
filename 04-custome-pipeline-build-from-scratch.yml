@@ -1,3 +1,4 @@
+
 # Stages
 # Stage-1:
   # Task-1: Build Docker Image and push to Azure Container Registry ACR
@@ -7,6 +8,11 @@
 
 trigger:
 - master
+
+# Variables
+variables:
+  tag: '$(Build.BuildId)'
+
 
 stages:
 # build stage
@@ -26,6 +32,7 @@ stages:
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
         tags: |
+          $(tag)
           $(Build.SourceVersion)
 ## Publish Artifacts pipeline code in addition to Build and Push          
     - bash: echo Contents in System Default Working Directory; ls -R $(System.DefaultWorkingDirectory)        
